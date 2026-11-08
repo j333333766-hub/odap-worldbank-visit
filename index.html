@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learning from Mistakes · Guwol Middle School</title>
+<meta name="description" content="A teacher-built AI-supported math classroom system for the 'Learning from Mistakes' project at Guwol Middle School, Incheon.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%237DCBB5'/><text x='32' y='44' font-size='36' text-anchor='middle' fill='white' font-family='serif'>π</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+@font-face{font-family:"Jalnan Gothic";src:url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff") format("woff");font-display:swap}
+:root{color-scheme:only light;
+  --brand:#7DCBB5;--brand-deep:#4FAE97;--brand-tint:#D6ECE7;--band:#EAF6F2;
+  --accent:#D9584F;--sky:#E9F2FA;--butter:#F6EFD9;--navy:#3B55A0;--navy-soft:#7F95DE;
+  --ink:#1B1F2A;--ink2:#4A4F5C;--muted:#8A8F9C;--line:#E6E8EE;--row:#F3F3F4;
+  --f-display:"Jalnan Gothic","Pretendard Variable",Pretendard,sans-serif;
+  --f-body:"Pretendard Variable",Pretendard,"Noto Sans KR","Malgun Gothic",system-ui,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--f-body);background:#fff;color:var(--ink2);line-height:1.6;word-break:keep-all;-webkit-font-smoothing:antialiased}
+[data-lang="en"] [lang="ko"],[data-lang="ko"] [lang="en"]{display:none!important}
+a{color:var(--navy)}
+img{max-width:100%;display:block}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:#ffffffee;backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:14px;height:58px}
+.brand{font-family:var(--f-display);font-size:19px;color:var(--brand-deep);text-decoration:none;white-space:nowrap}
+.brand small{font-family:var(--f-body);font-size:12px;color:var(--muted);font-weight:600;margin-left:6px}
+.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{font-size:14px;font-weight:600;color:var(--ink2);text-decoration:none;padding:6px 10px;border-radius:999px;white-space:nowrap}
+.nav a:hover{background:var(--band)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none}
+.lang button{font:700 13px var(--f-body);border:0;background:#fff;color:var(--ink2);padding:7px 12px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--brand-deep);color:#fff}
+/* hero */
+.hero{background:linear-gradient(160deg,var(--brand) 0%,#9dd9c8 55%,var(--band) 100%);color:#fff;padding:56px 0 44px;position:relative;overflow:hidden}
+.hero:after{content:"π  Σ  △  ○";position:absolute;right:-10px;bottom:-30px;font:400 120px var(--f-display);color:#ffffff26;letter-spacing:20px;white-space:nowrap}
+.kicker{display:inline-block;background:#ffffff33;border:1px solid #ffffff66;border-radius:999px;padding:4px 14px;font-weight:700;font-size:14px}
+.hero h1{font-family:var(--f-display);font-weight:400;font-size:clamp(30px,5vw,52px);line-height:1.2;margin:16px 0 10px;color:#fff;text-shadow:0 2px 12px #2b7a6640}
+.hero p.lead{font-size:clamp(16px,2.2vw,20px);max-width:760px;margin:0;color:#fff}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:30px;position:relative;z-index:1}
+.fact{background:#ffffffe8;color:var(--ink);border-radius:16px;padding:14px 16px}
+.fact b{display:block;font-family:var(--f-display);font-weight:400;font-size:22px;color:var(--brand-deep)}
+.fact span{font-size:13.5px;color:var(--ink2)}
+/* sections */
+section{padding:56px 0;border-bottom:1px solid var(--line)}
+section.tint{background:#FAFCFB}
+h2{font-family:var(--f-display);font-weight:400;font-size:clamp(24px,3.4vw,34px);color:var(--ink);margin:0 0 6px;letter-spacing:-.01em}
+h2 .num{display:inline-block;background:var(--brand-deep);color:#fff;border-radius:10px;font-size:.62em;padding:2px 10px;margin-right:10px;vertical-align:.18em}
+.sub{margin:0 0 26px;color:var(--muted);font-size:16px}
+h3{font-size:19px;color:var(--ink);margin:0 0 6px}
+/* cycle */
+.cycle{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:10px 0 18px}
+.step{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;position:relative}
+.step .ic{font-size:26px}
+.step b{display:block;color:var(--ink);font-size:16px;margin:6px 0 2px}
+.step p{margin:0;font-size:14.5px}
+.step:not(:last-child):after{content:"→";position:absolute;right:-12px;top:42%;font-weight:800;color:var(--brand-deep);background:#fff;border-radius:50%;width:22px;text-align:center}
+.note{background:var(--butter);border-radius:14px;padding:14px 18px;font-size:15px}
+.note b{color:var(--ink)}
+/* timeline */
+.timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:22px}
+.phase{border-radius:18px;padding:18px;border:1px solid var(--line);background:#fff}
+.phase .t{font-weight:800;font-size:13px;color:#fff;border-radius:999px;padding:2px 10px;display:inline-block}
+.phase.p1 .t{background:var(--navy)}.phase.p2 .t{background:var(--accent)}.phase.p3 .t{background:var(--brand-deep)}
+.phase h3{margin-top:8px}
+.phase ol{margin:6px 0 0;padding-left:20px;font-size:14.5px}
+.phase li{margin:2px 0}
+/* screenshot grid */
+.shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.shots.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+figure.shot{margin:0;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 2px 10px #1b1f2a0d;display:flex;flex-direction:column}
+figure.shot img{cursor:zoom-in;aspect-ratio:16/9;object-fit:cover;object-position:top;width:100%;border-bottom:1px solid var(--line)}
+figure.shot figcaption{padding:10px 12px 12px;font-size:14px}
+figure.shot figcaption b{color:var(--ink);display:block;font-size:14.5px}
+.tag{display:inline-block;font-size:11.5px;font-weight:800;border-radius:6px;padding:1px 7px;margin-right:6px;vertical-align:1px}
+.tag.s{background:var(--sky);color:var(--navy)}.tag.t{background:#FDECEA;color:var(--accent)}.tag.p{background:var(--band);color:var(--brand-deep)}
+/* features */
+.feat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:26px;align-items:center;padding:26px 0;border-top:1px dashed var(--line)}
+.feat:first-of-type{border-top:0}
+.feat.rev{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+.feat.rev .txt{order:2}
+.feat ul{margin:6px 0 0;padding-left:20px;font-size:15px}
+.feat li{margin:3px 0}
+.feat .pic{display:grid;gap:10px}
+.feat .pic img{border:1px solid var(--line);border-radius:12px;cursor:zoom-in;box-shadow:0 2px 10px #1b1f2a14}
+.feat .pic.duo{grid-template-columns:1fr 1fr}
+/* data */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:22px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+.kpi b{display:block;font-family:var(--f-display);font-weight:400;font-size:28px;color:var(--navy)}
+.kpi span{font-size:14px}
+.bars{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+.bar{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:12px;margin:10px 0}
+.bar .lab{font-size:14px;font-weight:700;color:var(--ink)}
+.stack{display:flex;height:30px;border-radius:8px;overflow:hidden;font-size:12.5px;font-weight:800;color:#fff}
+.stack div{display:flex;align-items:center;justify-content:center;white-space:nowrap}
+.mi{background:var(--accent)}.ji{background:var(--navy)}.ne{background:#A9ADB8}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.quote{background:var(--sky);border-radius:14px;padding:14px 18px;margin-top:14px;font-size:15px}
+.quote small{display:block;color:var(--muted);font-weight:700;margin-bottom:4px}
+.caveat{font-size:13.5px;color:var(--muted);margin-top:12px}
+.caveat li{margin:2px 0}
+/* principles */
+.prin{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.pr{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}
+.pr .ic{font-size:28px}
+.pr p{margin:4px 0 0;font-size:14.5px}
+/* footer */
+footer{background:var(--ink);color:#c9ced9;padding:36px 0;font-size:14px}
+footer b{color:#fff}
+footer .row{display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+footer img{width:110px;background:#fff;border-radius:10px;padding:6px}
+/* lightbox */
+.lb{position:fixed;inset:0;background:#0d1117e6;z-index:100;display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
+.lb.on{display:flex}
+.lb img{max-width:100%;max-height:90vh;border-radius:10px;box-shadow:0 10px 40px #0008}
+.lb p{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:#fff;font-size:14px;margin:0;padding:0 20px}
+@media (max-width:900px){
+  .facts,.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cycle{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .step:not(:last-child):after{display:none}
+  .timeline,.prin{grid-template-columns:1fr}
+  .shots{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .feat,.feat.rev{grid-template-columns:1fr}
+  .feat.rev .txt{order:0}
+  .nav{display:none}
+}
+@media (max-width:560px){
+  .wrap{padding:0 16px}
+  .shots,.shots.two{grid-template-columns:1fr}
+  .bar{grid-template-columns:1fr}
+  .hero{padding:40px 0 32px}
+  .brand small{display:none}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#top">Learning from Mistakes<small><span lang="en">Guwol Middle School</span><span lang="ko">구월중학교</span></small></a>
+  <nav class="nav">
+    <a href="#today"><span lang="en">Today's lesson</span><span lang="ko">오늘 수업</span></a>
+    <a href="#project"><span lang="en">Project</span><span lang="ko">프로젝트</span></a>
+    <a href="#platform"><span lang="en">Platform</span><span lang="ko">수업 시스템</span></a>
+    <a href="#teacher"><span lang="en">Teacher view</span><span lang="ko">교사 화면</span></a>
+    <a href="#data"><span lang="en">Evidence</span><span lang="ko">학생 변화</span></a>
+    <a href="#principles"><span lang="en">Principles</span><span lang="ko">설계 원칙</span></a>
+  </nav>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-set="en" aria-pressed="true">EN</button>
+    <button type="button" data-set="ko" aria-pressed="false">한국어</button>
+  </div>
+</div></header>
+
+<div class="hero" id="top"><div class="wrap">
+  <span class="kicker"><span lang="en">Classroom visit · Tue 10 November 2026</span><span lang="ko">수업 참관 · 2026년 11월 10일(화)</span></span>
+  <h1><span lang="en">Learning from Mistakes</span><span lang="ko">오답의 재발견</span></h1>
+  <p class="lead"><span lang="en">A Grade 7 mathematics class where students first write down what they think, test it with 3D tools, and change their minds with evidence — supported by an AI-enabled classroom platform built by the teacher.</span><span lang="ko">학생이 먼저 자기 생각을 기록하고, 3D 도구로 직접 확인하며, 근거를 가지고 생각을 바꾸는 중학교 1학년 수학 수업입니다. 수업을 돕는 AI 기반 수업 시스템은 담당 교사가 직접 만들었습니다.</span></p>
+  <div class="facts">
+    <div class="fact"><b>Grade 7</b><span><span lang="en">Middle school year 1 · 10 classes</span><span lang="ko">중학교 1학년 · 10개 반</span></span></div>
+    <div class="fact"><b><span lang="en">Solids of revolution</span><span lang="ko">회전체</span></b><span><span lang="en">Geometry unit in focus</span><span lang="ko">집중 단원</span></span></div>
+    <div class="fact"><b>45 min</b><span><span lang="en">One lesson, 15 web pages</span><span lang="ko">한 차시, 웹 활동지 15쪽</span></span></div>
+    <div class="fact"><b>Firebase + AI</b><span><span lang="en">Teacher-built platform</span><span lang="ko">교사가 직접 만든 수업 시스템</span></span></div>
+  </div>
+</div></div>
+
+<!-- 1. today's lesson -->
+<section id="today"><div class="wrap">
+  <h2><span class="num">1</span><span lang="en">Today's lesson at a glance</span><span lang="ko">오늘 수업 한눈에 보기</span></h2>
+  <p class="sub"><span lang="en">"Find the hidden clue, then design your own solid of revolution." Every student works on a laptop; the teacher leads the class page by page.</span><span lang="ko">「숨은 단서를 찾고 나만의 회전체 만들기」. 학생은 노트북으로 활동하고, 교사는 쪽 단위로 수업 흐름을 이끕니다.</span></p>
+  <div class="timeline">
+    <div class="phase p1"><span class="t">0–15′</span>
+      <h3><span lang="en">Part 1 · Who is right?</span><span lang="ko">1부 · 누구의 말이 맞을까?</span></h3>
+      <ol>
+        <li><span lang="en">Two claims: Minsu says the cross-section perpendicular to the axis is always a circle; Jiyeon says it may not be. Students vote and give a reason.</span><span lang="ko">민수: "회전축에 수직인 평면으로 자른 단면은 원이다." 지연: "원이 아닐 수도 있다." 누구에게 동의하는지 고르고 이유 쓰기</span></li>
+        <li><span lang="en">For two trapezoids, students sketch the predicted solid, then sketch the cross-sections at two heights they choose.</span><span lang="ko">사다리꼴 두 개로 회전체를 예상해 그리고, 직접 고른 두 높이에서 자른 단면을 예상해 그리기</span></li>
+        <li><span lang="en">Check in 3D: the solid is swept 360° and cut at the chosen heights.</span><span lang="ko">3D로 확인: 360° 돌려 회전체를 만들고 고른 높이에서 잘라 보기</span></li>
+      </ol>
+    </div>
+    <div class="phase p2"><span class="t">≈15′</span>
+      <h3><span lang="en">The hidden clue</span><span lang="ko">숨은 단서</span></h3>
+      <ol>
+        <li><span lang="en">What decides the shape of the cross-section? → the <b>boundary</b> of the cross-section (which parts touch the axis).</span><span lang="ko">단면 모양을 결정하는 것은? → 단면의 <b>경계</b>(평면도형의 어느 부분이 축에 닿아 있는가)</span></li>
+        <li><span lang="en">Vote again on the same question and write what they felt. The class sees how many minds changed.</span><span lang="ko">같은 질문에 다시 답하고 느낀 점 쓰기 — 생각이 얼마나 바뀌었는지 바로 보입니다</span></li>
+      </ol>
+    </div>
+    <div class="phase p3"><span class="t">15–45′</span>
+      <h3><span lang="en">Part 2 · Make your own</span><span lang="ko">2부 · 나만의 회전체 만들기</span></h3>
+      <ol>
+        <li><span lang="en">Pick an everyday object (spinning top, jar, doughnut) and draw the plane figure that makes it in AlgeoMath 3D.</span><span lang="ko">팽이·항아리·도넛 중 하나를 골라 그 회전체를 만드는 평면도형을 알지오3D에 그리기</span></li>
+        <li><span lang="en">Sketch an original design, build it in AlgeoMath 3D (the sketch stays on screen), export STL.</span><span lang="ko">나만의 회전체 스케치 → 알지오3D로 제작(스케치가 옆에 늘 보임) → STL 내보내기</span></li>
+        <li><span lang="en">Colour it in Paint 3D (teacher-made web app), upload, and see it in the class AR gallery on a phone.</span><span lang="ko">그림판3D(교사 제작 웹앱)로 색칠 → 활동지에서 바로 제출 → 휴대폰 AR 갤러리에서 함께 보기</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="shots">
+    <figure class="shot"><img src="img/sp02-vote.webp" alt="" loading="lazy"><figcaption><b><span class="tag s">P.2</span><span lang="en">First vote: Minsu or Jiyeon?</span><span lang="ko">처음 생각: 민수 또는 지연</span></b></figcaption></figure>
+    <figure class="shot"><img src="img/sp03-solid.webp" alt="" loading="lazy"><figcaption><b><span class="tag s">P.3</span><span lang="en">Predict the solid (line, ellipse, move & resize tools)</span><span lang="ko">회전체 예상 그리기(선분·타원·옮기기·크기 도구)</span></b></figcaption></figure>
+    <figure class="shot"><img src="img/sp06-before.webp" alt="" loading="lazy"><figcaption><b><span class="tag s">P.6</span><span lang="en">Choose two heights and sketch both cross-sections</span><span lang="ko">두 높이를 정하고 단면 두 개 예상하기</span></b></figcaption></figure>
+    <figure class="shot"><img src="img/sp06-3d.webp" alt="" loading="lazy"><figcaption><b><span class="tag s">P.6</span><span lang="en">Check in 3D: a ring appears at one height</span><span lang="ko">3D로 확인: 한 높이에서 고리 모양 단면</span></b></figcaption></figure>
+    <figure class="shot"><img src="img/sp07-clue.webp" alt="" loading="lazy"><figcaption><b><span class="tag s">P.7</span><span lang="en">The hidden clue</span><span lang="ko">숨은 단서</span></b></figcaption></figure>
+    <figure class="shot"><img src="img/sp08-post.webp" alt="" loading="lazy"><figcaption><b><span class="tag s">P.8</span><span lang="en">Vote again — the first answer is shown for reflection</span><span lang="ko">다시 생각 — 처음 고른 답이 함께 보임</span></b></figcaption></figure>
+    <figure class="shot"><img src="img/sp09-real.webp" alt="" loading="lazy"><figcaption><b><span class="tag s">P.9</span><span lang="en">Everyday solids → draw the plane figure in AlgeoMath 3D</span><span lang="ko">실생활 회전체 → 알지오3D에 평면도형 그리기</span></b></figcaption></figure>
+    <figure class="shot"><img src="img/sp11-sketch.webp" alt="" loading="lazy"><figcaption><b><span class="tag s">P.11</span><span lang="en">Design sketch with a symmetry axis</span><span lang="ko">대칭축이 있는 설계 스케치</span></b></figcaption></figure>
+    <figure class="shot"><img src="img/sp12-design.webp" alt="" loading="lazy"><figcaption><b><span class="tag s">P.12</span><span lang="en">Build it — the sketch stays on the right</span><span lang="ko">제작 — 내 스케치가 오른쪽에 계속 보임</span></b></figcaption></figure>
+    <figure class="shot"><img src="img/sp14-paint.webp" alt="" loading="lazy"><figcaption><b><span class="tag s">P.14</span><span lang="en">Colour it in Paint 3D (web app by the teacher)</span><span lang="ko">그림판3D로 색칠(교사 제작 웹앱)</span></b></figcaption></figure>
+    <figure class="shot"><img src="img/sp15-submit.webp" alt="" loading="lazy"><figcaption><b><span class="tag s">P.15</span><span lang="en">Upload inside the worksheet + AR gallery QR</span><span lang="ko">활동지 안에서 제출 + AR 갤러리 QR</span></b></figcaption></figure>
+    <figure class="shot"><img src="img/ar-gallery.webp" alt="" loading="lazy"><figcaption><b><span class="tag p">AR</span><span lang="en">Class AR gallery (names hidden here)</span><span lang="ko">반별 AR 갤러리(이 안내에서는 이름 가림)</span></b></figcaption></figure>
+  </div>
+  <p class="caveat"><span lang="en">Screenshots were taken on a test server with sample accounts (Test01–03); no real student data is shown.</span><span lang="ko">화면은 시험 서버에서 가짜 계정(테스트01~03)으로 찍었습니다. 실제 학생 정보는 없습니다.</span></p>
+</div></section>
+
+<!-- 2. project -->
+<section id="project" class="tint"><div class="wrap">
+  <h2><span class="num">2</span><span lang="en">The project: Learning from Mistakes</span><span lang="ko">프로젝트: 오답의 재발견</span></h2>
+  <p class="sub"><span lang="en">A national pilot run with the Korea Foundation for the Advancement of Science and Creativity (KOFAC) and the Incheon Metropolitan Office of Education. Guwol Middle School is a pilot school (Grade 7, regular math lessons in all 10 classes).</span><span lang="ko">한국과학창의재단·인천광역시교육청 운영학교 사업입니다. 구월중학교는 1학년 10개 반 정규 수학 수업에서 운영합니다.</span></p>
+  <div class="cycle">
+    <div class="step"><div class="ic">✍️</div><b><span lang="en">1. Record thinking</span><span lang="ko">1. 생각 기록</span></b><p><span lang="en">Answer + reason + confidence (1–4) before any feedback.</span><span lang="ko">답 + 이유 + 확신도(1~4)를 먼저 남깁니다.</span></p></div>
+    <div class="step"><div class="ic">🔎</div><b><span lang="en">2. Diagnose</span><span lang="ko">2. 오개념 진단</span></b><p><span lang="en">Each wrong option is linked to a known misconception; a confident wrong answer counts as evidence.</span><span lang="ko">틀린 보기마다 오개념이 연결되어 있고, 자신 있게 틀린 답을 증거로 셉니다.</span></p></div>
+    <div class="step"><div class="ic">🧭</div><b><span lang="en">3. Teacher prescribes</span><span lang="ko">3. 교사 처방</span></b><p><span lang="en">The class map of misconceptions shapes the next lesson: counter-examples, 3D checks.</span><span lang="ko">반 전체 오개념 지도를 보고 다음 수업의 반례·3D 확인 활동을 고릅니다.</span></p></div>
+    <div class="step"><div class="ic">🔁</div><b><span lang="en">4. Rethink</span><span lang="ko">4. 다시 생각</span></b><p><span lang="en">Students revisit the same question and explain what changed (3-Step reflection).</span><span lang="ko">같은 질문을 다시 풀고 무엇이 바뀌었는지 설명합니다(3-Step 회고).</span></p></div>
+  </div>
+  <div class="note"><b><span lang="en">AI comes after thinking.</span><span lang="ko">AI는 생각한 다음에.</span></b> <span lang="en">The AI never gives the answer first. It asks follow-up questions only after the student has committed to an answer, and the student's first answer stays locked.</span><span lang="ko">AI가 먼저 답을 주지 않습니다. 학생이 답을 정한 뒤에만 되묻는 질문을 하고, 처음 답은 고칠 수 없게 남깁니다.</span></div>
+</div></section>
+
+<!-- 3. platform -->
+<section id="platform"><div class="wrap">
+  <h2><span class="num">3</span><span lang="en">The classroom platform (built by the teacher)</span><span lang="ko">수업 시스템(교사가 직접 개발)</span></h2>
+  <p class="sub"><span lang="en">One website for students and teachers, running on Google Firebase. Students sign in with their school Google account; every record stays connected to the same student across lessons.</span><span lang="ko">학생·교사가 함께 쓰는 하나의 웹사이트(구글 Firebase). 학생은 학교 구글 계정으로 로그인하고, 모든 기록이 한 학생 이름으로 이어집니다.</span></p>
+
+  <div class="feat">
+    <div class="txt">
+      <h3><span lang="en">Student home: daily quiz, diagnosis, tiers</span><span lang="ko">학생 홈: 오늘의 퀴즈·진단·티어</span></h3>
+      <ul>
+        <li><span lang="en"><b>Pre/post diagnosis</b> with answer, reason and confidence; post-tests use parallel items (same concept, different look).</span><span lang="ko"><b>사전·사후 진단</b>: 답·이유·확신도. 사후는 같은 개념, 다른 겉모습의 동형 문항.</span></li>
+        <li><span lang="en"><b>Today's quiz</b>: one question a day for everyone; a wrong option explains <i>why</i> it is tempting.</span><span lang="ko"><b>오늘의 퀴즈</b>: 매일 같은 한 문제, 틀린 보기를 고르면 왜 헷갈리는지 설명.</span></li>
+        <li><span lang="en"><b>Points & game-style tiers</b> (Bronze → Master) for participation and effort only — never for correctness. Points can be exchanged for snacks.</span><span lang="ko"><b>포인트·티어</b>(브론즈→마스터)는 참여·노력에만, 정답과 무관. 간식으로 교환.</span></li>
+        <li><span lang="en"><b>Math diary</b> linked to the school timetable, with teacher replies.</span><span lang="ko"><b>수학 일기</b>: 학교 시간표와 연결, 교사 답장.</span></li>
+      </ul>
+    </div>
+    <div class="pic"><img src="img/home-student.webp" alt="" loading="lazy"></div>
+  </div>
+
+  <div class="feat rev">
+    <div class="txt">
+      <h3><span lang="en">Live lessons: the teacher controls the flow</span><span lang="ko">실시간 수업: 교사가 흐름을 이끈다</span></h3>
+      <ul>
+        <li><span lang="en">The teacher opens steps one by one, brings everyone to a step, and can lock answers after a 30-second countdown.</span><span lang="ko">교사가 단계를 하나씩 열고, 모두를 한 단계로 모으고, 30초 뒤 답을 마감할 수 있습니다.</span></li>
+        <li><span lang="en">Step-by-step monitoring shows every answer as it is written (filters: wrong, confidently wrong, not submitted).</span><span lang="ko">단계별 모니터링에서 쓰는 중인 답까지 보고, 오답·자신 있는 오답·미제출로 거릅니다.</span></li>
+        <li><span lang="en">AI feedback (Google Gemini) at the end of a lesson, written for the student's own record.</span><span lang="ko">차시가 끝나면 학생 기록을 바탕으로 AI(Gemini) 피드백.</span></li>
+      </ul>
+    </div>
+    <div class="pic duo"><img src="img/live-student.webp" alt="" loading="lazy"><img src="img/live-teacher.webp" alt="" loading="lazy"></div>
+  </div>
+
+  <div class="feat">
+    <div class="txt">
+      <h3><span lang="en">Making solids: AlgeoMath 3D → Paint 3D → AR</span><span lang="ko">회전체 만들기: 알지오3D → 그림판3D → AR</span></h3>
+      <ul>
+        <li><span lang="en">The web worksheet embeds <b>AlgeoMath 3D</b> (national math tool) and the teacher's own <b>Paint 3D</b> web app.</span><span lang="ko">웹 활동지 안에 <b>알지오3D</b>(국가 수학 도구)와 교사가 만든 <b>그림판3D</b>를 넣었습니다.</span></li>
+        <li><span lang="en">The platform saves a small snapshot of each student's AlgeoMath screen, so the teacher sees who has actually rotated a figure.</span><span lang="ko">알지오3D 화면을 작은 사진으로 남겨, 누가 실제로 회전시켰는지 교사가 봅니다.</span></li>
+        <li><span lang="en">Finished models are uploaded inside the worksheet and appear in the class <b>AR gallery</b> for phones.</span><span lang="ko">완성 작품은 활동지에서 바로 올리고, 휴대폰 <b>AR 갤러리</b>에 반별로 모입니다.</span></li>
+      </ul>
+    </div>
+    <div class="pic duo"><img src="img/sp12-design.webp" alt="" loading="lazy"><img src="img/ar-gallery.webp" alt="" loading="lazy"></div>
+  </div>
+
+  <div class="feat rev">
+    <div class="txt">
+      <h3><span lang="en">Ask a question — with a deliberate delay</span><span lang="ko">질문하기 — 일부러 늦게 답하는 AI</span></h3>
+      <ul>
+        <li><span lang="en">Students ask concept or problem questions (photos allowed). The AI answer is released only after a delay set by the teacher, so students keep thinking first.</span><span lang="ko">개념·문제 질문(사진 가능). AI 답은 교사가 정한 시간이 지난 뒤에 공개되어 학생이 먼저 더 생각합니다.</span></li>
+        <li><span lang="en">Teachers preview AI answers and can reply themselves.</span><span lang="ko">교사는 공개 전 AI 답을 미리 보고 직접 답글을 달 수 있습니다.</span></li>
+      </ul>
+    </div>
+    <div class="pic"><img src="img/ask.webp" alt="" loading="lazy"></div>
+  </div>
+</div></section>
+
+<!-- 4. teacher view -->
+<section id="teacher" class="tint"><div class="wrap">
+  <h2><span class="num">4</span><span lang="en">What the teacher sees during the lesson</span><span lang="ko">수업 중 교사 화면</span></h2>
+  <p class="sub"><span lang="en">Page-by-page monitoring on one screen: every student's drawing or answer appears as a card the moment it changes. The teacher can call the class to a page, lock it, close answers, and share selected answers on the board.</span><span lang="ko">쪽별 모니터링: 학생의 그림과 답이 바뀌는 순간 카드로 보입니다. 학생 불러오기·잠금·답 마감, 고른 답을 칠판에 공유할 수 있습니다.</span></p>
+  <div class="shots two">
+    <figure class="shot"><img src="img/t-monitor-p6.webp" alt="" loading="lazy"><figcaption><b><span class="tag t">P.6</span><span lang="en">Predicted cross-sections, side by side</span><span lang="ko">학생들의 단면 예상 그림을 한눈에</span></b><span lang="en">Who expected a ring, who expected a full disc — before the 3D check.</span><span lang="ko">3D 확인 전, 누가 고리를·누가 꽉 찬 원을 예상했는지.</span></figcaption></figure>
+    <figure class="shot"><img src="img/t-monitor-p8.webp" alt="" loading="lazy"><figcaption><b><span class="tag t">P.8</span><span lang="en">Second vote with reasons and reflections</span><span lang="ko">다시 생각 — 이유와 느낀 점</span></b></figcaption></figure>
+    <figure class="shot"><img src="img/t-live-panel.webp" alt="" loading="lazy"><figcaption><b><span class="tag t">LIVE</span><span lang="en">Lesson bar + the student screen on the right</span><span lang="ko">수업 막대 + 오른쪽 학생 화면</span></b></figcaption></figure>
+    <figure class="shot"><img src="img/t-students.webp" alt="" loading="lazy"><figcaption><b><span class="tag t">LIVE</span><span lang="en">Student overview: page, progress, files</span><span lang="ko">학생별 현황: 지금 쪽·진행·작품 파일</span></b></figcaption></figure>
+  </div>
+</div></section>
+
+<!-- 5. evidence -->
+<section id="data"><div class="wrap">
+  <h2><span class="num">5</span><span lang="en">What changed in students' thinking</span><span lang="ko">학생 생각의 변화</span></h2>
+  <p class="sub"><span lang="en">From the platform records of Grade 7 classes 6–10 (151 students), as of 5 Nov 2026. No names or IDs.</span><span lang="ko">1학년 6~10반(151명) 앱 기록, 2026. 11. 5. 기준. 이름·학번 없이 집계.</span></p>
+  <div class="kpis">
+    <div class="kpi"><b>89</b><span><span lang="en">students took the pre-diagnosis</span><span lang="ko">명 회전체 사전 진단 제출</span></span></div>
+    <div class="kpi"><b>106</b><span><span lang="en">joined live lesson 1 "Who is right?"</span><span lang="ko">명 1차시 「무엇이 맞을까?」 참여</span></span></div>
+    <div class="kpi"><b>140</b><span><span lang="en">used the rotation-solid web worksheet</span><span lang="ko">명 회전체 만들기 웹 활동지 참여</span></span></div>
+    <div class="kpi"><b>124</b><span><span lang="en">rotated a figure themselves in AlgeoMath 3D</span><span lang="ko">명 알지오3D로 평면도형을 직접 돌려 봄</span></span></div>
+  </div>
+  <div class="bars">
+    <h3><span lang="en">Same question, before and after the counter-example (n = 93, answered both times)</span><span lang="ko">반례 전후 같은 질문(두 번 모두 답한 93명)</span></h3>
+    <div class="bar"><span class="lab"><span lang="en">First thought</span><span lang="ko">처음 생각</span></span>
+      <div class="stack"><div class="mi" style="width:58%">58%</div><div class="ji" style="width:40%">40%</div><div class="ne" style="width:2%"></div></div></div>
+    <div class="bar"><span class="lab"><span lang="en">Thinking again</span><span lang="ko">다시 생각</span></span>
+      <div class="stack"><div class="mi" style="width:27%">27%</div><div class="ji" style="width:69%">69%</div><div class="ne" style="width:4%"></div></div></div>
+    <div class="legend"><span><i class="mi"></i><span lang="en">Minsu: "always a circle" (misconception)</span><span lang="ko">민수: "항상 원" (오개념)</span></span><span><i class="ji"></i><span lang="en">Jiyeon: "may not be a circle" (correct)</span><span lang="ko">지연: "원이 아닐 수도" (정답)</span></span><span><i class="ne"></i><span lang="en">Neither</span><span lang="ko">둘 다 아님</span></span></div>
+    <p style="margin:12px 0 0"><span lang="en"><b>40% → 69%</b> chose the correct view after meeting a counter-example (a right triangle touching the axis at one vertex, whose solid has a hollow cross-section). During the lesson, <b>76%</b> of 105 students judged that "a cross-section with a hole is not a circle".</span><span lang="ko">반례(꼭짓점 하나만 축에 닿은 직각삼각형 → 가운데가 빈 단면)를 만난 뒤 정답 선택이 <b>40% → 69%</b>. 수업 중 105명 가운데 <b>76%</b>가 "가운데가 빈 단면은 원이 아니다"라고 판단했습니다.</span></p>
+    <div class="quote"><small><span lang="en">A student's own words (original, translated)</span><span lang="ko">학생 글(원문 그대로)</span></small><span lang="en">"If part of the figure does not touch the rotation axis, the cross-section perpendicular to the axis can have a hole in the middle; if every part touches it, there is no hole."</span><span lang="ko">"회전축에 안 닿아있는 부분이 있으면 회전축에 수직인 평면으로 잘랐을 때 만들어지는 단면에 가운데에 구멍이 생길 수 있고 회전축에 안 닿아있는 부분 없이 다 닿아있으면 구멍이 나지 않는다"</span></div>
+    <ul class="caveat">
+      <li><span lang="en">Lesson 1 data covers four classes (106 students); class 9 had no lesson-1 record.</span><span lang="ko">1차시 기록은 9반이 없어 4개 반(106명) 기준입니다.</span></li>
+      <li><span lang="en">Only students who reached "thinking again" are in the before/after comparison, which may favour those who finished.</span><span lang="ko">‘다시 생각’까지 답한 학생만 비교에 들어가 끝까지 간 학생 쪽으로 기울 수 있습니다.</span></li>
+      <li><span lang="en">"Minsu" and "Jiyeon" are fictional characters in the task.</span><span lang="ko">‘민수·지연’은 문항 속 가상 인물입니다.</span></li>
+    </ul>
+  </div>
+</div></section>
+
+<!-- 6. principles -->
+<section id="principles" class="tint"><div class="wrap">
+  <h2><span class="num">6</span><span lang="en">Design principles</span><span lang="ko">설계 원칙</span></h2>
+  <p class="sub"><span lang="en">Choices made by the teacher while building the platform with students.</span><span lang="ko">학생들과 수업하며 교사가 세운 원칙입니다.</span></p>
+  <div class="prin">
+    <div class="pr"><div class="ic">🌱</div><h3><span lang="en">Show change, not labels</span><span lang="ko">딱지 대신 생각 변화</span></h3><p><span lang="en">Students never see a "misconception" label. They see how their own thinking changed; diagnosis codes are for the teacher.</span><span lang="ko">학생에게 오개념 딱지를 보여 주지 않습니다. 학생은 자기 생각의 변화를, 교사는 진단 결과를 봅니다.</span></p></div>
+    <div class="pr"><div class="ic">🧠</div><h3><span lang="en">Think first, AI second</span><span lang="ko">먼저 생각, AI는 나중</span></h3><p><span lang="en">Predictions are locked before the 3D check; AI answers are delayed; the first answer is kept.</span><span lang="ko">3D 확인 전에 예상을 잠그고, AI 답은 늦게 공개하며, 처음 답은 남깁니다.</span></p></div>
+    <div class="pr"><div class="ic">🎮</div><h3><span lang="en">Reward effort, not answers</span><span lang="ko">정답이 아니라 참여에 보상</span></h3><p><span lang="en">Points come from attendance, quizzes, diaries and lesson steps — a wrong answer earns the same as a right one.</span><span lang="ko">포인트는 출석·퀴즈·일기·수업 단계에서. 틀려도 맞아도 같은 점수입니다.</span></p></div>
+    <div class="pr"><div class="ic">🧑‍🏫</div><h3><span lang="en">The teacher leads the flow</span><span lang="ko">수업 흐름은 교사가</span></h3><p><span lang="en">Calling, locking and closing pages keep 30 students together while every answer remains visible.</span><span lang="ko">불러오기·잠금·마감으로 30명이 함께 가면서도 모든 답이 보입니다.</span></p></div>
+    <div class="pr"><div class="ic">✋</div><h3><span lang="en">Hands before tools</span><span lang="ko">손으로 먼저, 도구는 확인</span></h3><p><span lang="en">Students sketch with their own hands, then use 3D tools to test the sketch.</span><span lang="ko">학생이 직접 그려 본 다음 3D 도구로 확인합니다.</span></p></div>
+    <div class="pr"><div class="ic">🔒</div><h3><span lang="en">Privacy by default</span><span lang="ko">개인정보 기본 보호</span></h3><p><span lang="en">School Google accounts, records visible only to the student and teachers, names masked in public galleries.</span><span lang="ko">학교 구글 계정, 본인·교사만 보는 기록, 공개 갤러리는 이름 가림.</span></p></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap row">
+  <div>
+    <b><span lang="en">Guwol Middle School · Mathematics · Cho Changhyun</span><span lang="ko">구월중학교 수학과 조창현</span></b><br>
+    <span lang="en">Learning from Mistakes pilot school (KOFAC · Incheon Metropolitan Office of Education), 2026</span><span lang="ko">한국과학창의재단·인천광역시교육청 「오답의 재발견」 운영학교, 2026</span>
+  </div>
+  <img src="qr.svg" alt="QR code for this page">
+</div></footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true"><img alt=""><p></p></div>
+<script>
+(function () {
+  var html = document.documentElement;
+  function setLang(l) {
+    html.dataset.lang = l; html.lang = l;
+    document.querySelectorAll('.lang button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.set === l)); });
+    document.title = l === 'ko' ? '오답의 재발견 · 구월중학교' : 'Learning from Mistakes · Guwol Middle School';
+    try { localStorage.setItem('odap-visit-lang', l); } catch (e) {}
+  }
+  var q = new URLSearchParams(location.search).get('lang'), saved = null;
+  try { saved = localStorage.getItem('odap-visit-lang'); } catch (e) {}
+  setLang(q === 'ko' || q === 'en' ? q : saved === 'ko' ? 'ko' : 'en');
+  document.querySelectorAll('.lang button').forEach(function (b) { b.addEventListener('click', function () { setLang(b.dataset.set); }); });
+  var lb = document.getElementById('lb'), lbi = lb.querySelector('img'), lbp = lb.querySelector('p');
+  document.addEventListener('click', function (e) {
+    var img = e.target.closest('figure.shot img, .feat .pic img');
+    if (img) {
+      lbi.src = img.src;
+      var cap = img.closest('figure') && img.closest('figure').querySelector('figcaption b');
+      lbp.textContent = cap ? cap.innerText : '';
+      lb.classList.add('on'); return;
+    }
+    if (e.target.closest('#lb')) lb.classList.remove('on');
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') lb.classList.remove('on'); });
+})();
+</script>
+</body>
+</html>
