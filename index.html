@@ -109,6 +109,24 @@ figure.shot figcaption b{color:var(--ink);display:block;font-size:14.5px}
 .pr{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}
 .pr .ic{font-size:28px}
 .pr p{margin:4px 0 0;font-size:14.5px}
+/* routines & AI */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:22px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}
+.card .ic{font-size:28px}
+.card h3{font-size:17px;margin:6px 0 4px}
+.card p{margin:0;font-size:14.5px}
+.card ul{margin:6px 0 0;padding-left:18px;font-size:14px}
+.tiers{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px}
+.tiers span{font-size:12.5px;font-weight:800;border-radius:999px;padding:3px 10px;color:#fff}
+.pts{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.pts th,.pts td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:left}
+.pts th{background:var(--band);color:var(--ink)}
+.pts td:last-child,.pts th:last-child{text-align:right;white-space:nowrap}
+.ai{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.ai .card{border-left:5px solid var(--navy-soft)}
+.guard{margin-top:16px}
+.guard li{margin:3px 0}
+@media (max-width:900px){.cards,.ai{grid-template-columns:1fr}}
 /* footer */
 footer{background:var(--ink);color:#c9ced9;padding:36px 0;font-size:14px}
 footer b{color:#fff}
@@ -145,6 +163,7 @@ footer img{width:110px;background:#fff;border-radius:10px;padding:6px}
     <a href="#today"><span lang="en">Today's lesson</span><span lang="ko">오늘 수업</span></a>
     <a href="#project"><span lang="en">Project</span><span lang="ko">프로젝트</span></a>
     <a href="#platform"><span lang="en">Platform</span><span lang="ko">수업 시스템</span></a>
+    <a href="#routines"><span lang="en">Motivation &amp; AI</span><span lang="ko">참여·AI</span></a>
     <a href="#teacher"><span lang="en">Teacher view</span><span lang="ko">교사 화면</span></a>
     <a href="#data"><span lang="en">Evidence</span><span lang="ko">학생 변화</span></a>
     <a href="#principles"><span lang="en">Principles</span><span lang="ko">설계 원칙</span></a>
@@ -238,7 +257,7 @@ footer img{width:110px;background:#fff;border-radius:10px;padding:6px}
         <li><span lang="en"><b>Pre/post diagnosis</b> with answer, reason and confidence; post-tests use parallel items (same concept, different look).</span><span lang="ko"><b>사전·사후 진단</b>: 답·이유·확신도. 사후는 같은 개념, 다른 겉모습의 동형 문항.</span></li>
         <li><span lang="en"><b>Today's quiz</b>: one question a day for everyone; a wrong option explains <i>why</i> it is tempting.</span><span lang="ko"><b>오늘의 퀴즈</b>: 매일 같은 한 문제, 틀린 보기를 고르면 왜 헷갈리는지 설명.</span></li>
         <li><span lang="en"><b>Points & game-style tiers</b> (Bronze → Master) for participation and effort only — never for correctness. Points can be exchanged for snacks.</span><span lang="ko"><b>포인트·티어</b>(브론즈→마스터)는 참여·노력에만, 정답과 무관. 간식으로 교환.</span></li>
-        <li><span lang="en"><b>Math diary</b> linked to the school timetable, with teacher replies.</span><span lang="ko"><b>수학 일기</b>: 학교 시간표와 연결, 교사 답장.</span></li>
+        <li><span lang="en"><b>Math diary</b> linked to the school timetable, with teacher replies. (More in section 4.)</span><span lang="ko"><b>수학 일기</b>: 학교 시간표와 연결, 교사 답장. (자세한 내용은 4장)</span></li>
       </ul>
     </div>
     <div class="pic"><img src="img/home-student.webp" alt="" loading="lazy"></div>
@@ -280,9 +299,56 @@ footer img{width:110px;background:#fff;border-radius:10px;padding:6px}
   </div>
 </div></section>
 
+<!-- 4. motivation, routines & AI -->
+<section id="routines" class="tint"><div class="wrap">
+  <h2><span class="num">4</span><span lang="en">Daily routines, motivation and AI support</span><span lang="ko">참여를 이끄는 장치와 AI 지원</span></h2>
+  <p class="sub"><span lang="en">Small daily routines keep students coming back to mathematics between lessons. Every routine feeds the same student record, so the teacher sees one connected picture of each learner.</span><span lang="ko">수업과 수업 사이에도 학생이 수학으로 돌아오게 하는 작은 일과들입니다. 모든 활동이 한 학생의 기록으로 이어져, 교사는 학생 한 명 한 명을 하나로 이어진 그림으로 봅니다.</span></p>
+
+  <div class="cards">
+    <div class="card"><div class="ic">🧩</div><h3><span lang="en">Readiness check</span><span lang="ko">준비 진단</span></h3>
+      <p><span lang="en">Before the unit, a 10-minute check on the elementary-school ideas it builds on (prisms and pyramids, cylinders, cones and spheres, nets). Short sets let students fill gaps one topic at a time; answers come with a reason and confidence (1–4).</span><span lang="ko">단원을 시작하기 전, 바탕이 되는 초등 내용(각기둥·각뿔, 원기둥·원뿔·구, 전개도)을 10분 안에 확인합니다. 주제별 짧은 묶음으로 빈 곳을 하나씩 메우고, 답마다 이유와 확신도(1~4)를 남깁니다.</span></p></div>
+    <div class="card"><div class="ic">📅</div><h3><span lang="en">Attendance check</span><span lang="ko">출석 체크</span></h3>
+      <p><span lang="en">One tap a day on the home screen. A stamp calendar shows the month, and every 5-day streak earns a bonus (weekends do not break a streak).</span><span lang="ko">첫 화면에서 하루 한 번 누릅니다. 출석 달력에 도장이 찍히고, 5일 연속마다 보너스가 붙습니다(주말은 연속을 끊지 않음).</span></p></div>
+    <div class="card"><div class="ic">🏅</div><h3><span lang="en">Tiers (levels)</span><span lang="ko">등급제(티어)</span></h3>
+      <p><span lang="en">Total points place each student in a game-style tier with its own emblem, plus 11 badges and a class Top 5.</span><span lang="ko">누적 포인트로 게임식 티어가 정해지고, 티어마다 엠블럼이 있습니다. 배지 11종과 우리 반 TOP 5도 함께 보입니다.</span></p>
+      <div class="tiers"><span style="background:#B87333"><span lang="en">Bronze 0</span><span lang="ko">브론즈 0</span></span><span style="background:#9AA3AE"><span lang="en">Silver 50</span><span lang="ko">실버 50</span></span><span style="background:#D4A62A"><span lang="en">Gold 150</span><span lang="ko">골드 150</span></span><span style="background:#3FA7A0"><span lang="en">Platinum 300</span><span lang="ko">플래티넘 300</span></span><span style="background:#5B8DEF"><span lang="en">Diamond 500</span><span lang="ko">다이아몬드 500</span></span><span style="background:#8E5BD6"><span lang="en">Master 800</span><span lang="ko">마스터 800</span></span></div></div>
+    <div class="card"><div class="ic">🍪</div><h3><span lang="en">Snack exchange</span><span lang="ko">간식 교환</span></h3>
+      <p><span lang="en">Students spend points on a snack voucher. The teacher sets the item and price, hands out the snack, and confirms it in the app; every exchange is logged. Spending points never lowers a student's tier.</span><span lang="ko">모은 포인트로 간식 교환을 신청합니다. 교사가 품목·가격을 정하고, 간식을 준 뒤 앱에서 확인하면 기록이 남습니다. 포인트를 써도 티어는 내려가지 않습니다(누적 기준).</span></p></div>
+    <div class="card"><div class="ic">📔</div><h3><span lang="en">Math diary</span><span lang="ko">수학 일기</span></h3>
+      <p><span lang="en">A calendar linked to the school timetable (NEIS) shows each math lesson. Students rate the lesson and write four short parts: what they learned, what they did, how they felt and what they will try next. The teacher writes back.</span><span lang="ko">학교 시간표(나이스)와 연결된 달력에 수학 시간이 표시됩니다. 학생은 별점과 함께 배운 내용·나의 활동·느낀 점·앞으로를 쓰고, 교사가 답장합니다.</span></p></div>
+    <div class="card"><div class="ic">💬</div><h3><span lang="en">Ask a question</span><span lang="ko">질문하기</span></h3>
+      <p><span lang="en">Concept or problem questions at any time, with a photo of the problem if needed. The AI replies with hints rather than final answers, and the teacher can add a reply.</span><span lang="ko">언제든 개념 질문·문제 질문을 올립니다(문제 사진 가능). AI는 최종 답 대신 실마리를 주고, 교사도 답글을 달 수 있습니다.</span></p></div>
+  </div>
+
+  <div class="feat" style="padding-top:4px">
+    <div class="txt">
+      <h3><span lang="en">Points reward effort, never correctness</span><span lang="ko">포인트는 정답이 아니라 참여와 노력에</span></h3>
+      <p style="margin:0 0 10px;font-size:15px"><span lang="en">A wrong answer earns exactly the same as a right one, so students are not afraid to write down what they really think. Points are calculated on the server from existing records; students cannot edit them. The teacher can add praise points with a reason.</span><span lang="ko">오답도 정답과 똑같이 점수를 받으므로, 학생은 틀릴 걱정 없이 진짜 생각을 적습니다. 포인트는 서버가 기존 기록으로 계산해 학생이 고칠 수 없고, 교사는 이유를 붙여 칭찬 포인트를 줄 수 있습니다.</span></p>
+    </div>
+    <table class="pts"><thead><tr><th><span lang="en">Activity</span><span lang="ko">활동</span></th><th><span lang="en">Points</span><span lang="ko">포인트</span></th></tr></thead><tbody><tr><td><span lang="en">Daily attendance check</span><span lang="ko">출석 체크(하루 한 번)</span></td><td>5</td></tr><tr><td><span lang="en">Every 5-day attendance streak</span><span lang="ko">5일 연속 출석마다</span></td><td>+10</td></tr><tr><td><span lang="en">Today's quiz</span><span lang="ko">오늘의 퀴즈</span></td><td>5</td></tr><tr><td><span lang="en">Readiness check</span><span lang="ko">준비 진단</span></td><td>5</td></tr><tr><td><span lang="en">Pre / post diagnosis</span><span lang="ko">사전·사후 진단</span></td><td>30</td></tr><tr><td><span lang="en">Each step of a live lesson / worksheet page</span><span lang="ko">실시간 수업 단계·활동지 쪽마다</span></td><td>3</td></tr><tr><td><span lang="en">Finishing a lesson with reflection</span><span lang="ko">차시를 회고까지 마치면</span></td><td>+10</td></tr><tr><td><span lang="en">Math diary entry</span><span lang="ko">수학 일기</span></td><td>10</td></tr></tbody></table>
+  </div>
+
+  <h3 style="margin-top:30px"><span lang="en">🤖 AI through an API: personal feedback for every student</span><span lang="ko">🤖 API로 연결한 AI: 학생마다 개별 피드백</span></h3>
+  <p style="margin:0 0 14px;font-size:15px"><span lang="en">The platform calls Google's Gemini model through its API from a secure server function. The key never reaches the student's browser.</span><span lang="ko">수업 시스템의 서버 함수가 구글 Gemini 모델을 API로 부릅니다. API 키는 학생 브라우저로 가지 않습니다.</span></p>
+  <div class="ai">
+    <div class="card"><h3><span lang="en">Personal feedback after each lesson</span><span lang="ko">차시마다 개별 피드백</span></h3>
+      <p><span lang="en">When a student finishes a lesson, the AI reads that student's own answers, reasons, confidence ratings and hand-drawn sketches, and writes feedback just for them: how their thinking changed from first to last, one specific thing they did well, anything still unclear, and one question to carry into the next lesson. The teacher can read every comment.</span><span lang="ko">학생이 차시를 마치면 AI가 그 학생의 답·이유·확신도·손그림을 읽고, 처음 생각과 마지막 생각의 변화, 잘한 장면 하나, 아직 헷갈리는 점, 다음 차시로 이어질 질문 하나를 담아 그 학생만을 위한 피드백을 씁니다. 교사도 모두 볼 수 있습니다.</span></p></div>
+    <div class="card"><h3><span lang="en">Answers to students' questions</span><span lang="ko">학생 질문에 답하기</span></h3>
+      <p><span lang="en">Questions from the 'Ask' page are answered by the AI with explanations and hints, not final answers. The answer is held back for a time set by the teacher so that students keep thinking first, and the teacher can preview it before release.</span><span lang="ko">질문하기에 올라온 질문에 AI가 설명과 실마리로 답합니다(최종 답은 주지 않음). 학생이 먼저 더 생각하도록 교사가 정한 시간 뒤에 공개되고, 교사는 공개 전에 미리 봅니다.</span></p></div>
+    <div class="card"><h3><span lang="en">Follow-up dialogue after a diagnosis</span><span lang="ko">진단 뒤 되묻는 대화</span></h3>
+      <p><span lang="en">After answering a diagnosis item, a student can talk it through with the AI. The first answer is locked before the dialogue starts, so the teacher always sees the student's own thinking, and the AI asks questions instead of telling.</span><span lang="ko">진단 문항에 답한 뒤 AI와 이야기할 수 있습니다. 대화 전에 처음 답이 고정되어 교사는 학생 본래의 생각을 보고, AI는 알려 주기보다 되묻습니다.</span></p></div>
+    <div class="card"><h3><span lang="en">Class analysis for the teacher</span><span lang="ko">교사를 위한 반별 분석</span></h3>
+      <p><span lang="en">With one click the teacher gets an AI summary of a class: main misconceptions, notable answers and suggestions for the next lesson. Only aggregated data and short excerpts without names are sent.</span><span lang="ko">교사가 한 번 누르면 반 전체 기록을 AI가 정리합니다: 두드러진 오개념, 눈여겨볼 답, 다음 수업 제안. 집계와 이름을 뺀 짧은 글만 보냅니다.</span></p></div>
+  </div>
+  <ul class="guard caveat">
+    <li><span lang="en">Unit-specific reference notes are built into the prompts, so the AI does not repeat the very misconception the lesson targets.</span><span lang="ko">단원 참고 자료를 지시문에 넣어, AI가 이 수업이 다루는 오개념을 되풀이하지 않게 했습니다.</span></li>
+    <li><span lang="en">Cost guards: a monthly budget cap, a daily limit per student and an off switch for the teacher.</span><span lang="ko">비용 안전장치: 월 한도, 학생별 하루 횟수 제한, 교사용 끄기 단추.</span></li>
+  </ul>
+</div></section>
+
 <!-- 4. teacher view -->
-<section id="teacher" class="tint"><div class="wrap">
-  <h2><span class="num">4</span><span lang="en">What the teacher sees during the lesson</span><span lang="ko">수업 중 교사 화면</span></h2>
+<section id="teacher"><div class="wrap">
+  <h2><span class="num">5</span><span lang="en">What the teacher sees during the lesson</span><span lang="ko">수업 중 교사 화면</span></h2>
   <p class="sub"><span lang="en">Page-by-page monitoring on one screen: every student's drawing or answer appears as a card the moment it changes. The teacher can call the class to a page, lock it, close answers, and share selected answers on the board.</span><span lang="ko">쪽별 모니터링: 학생의 그림과 답이 바뀌는 순간 카드로 보입니다. 학생 불러오기·잠금·답 마감, 고른 답을 칠판에 공유할 수 있습니다.</span></p>
   <div class="shots two">
     <figure class="shot"><img src="img/t-monitor-p6.webp" alt="" loading="lazy"><figcaption><b><span class="tag t">P.6</span><span lang="en">Predicted cross-sections, side by side</span><span lang="ko">학생들의 단면 예상 그림을 한눈에</span></b><span lang="en">Who expected a ring, who expected a full disc — before the 3D check.</span><span lang="ko">3D 확인 전, 누가 고리를·누가 꽉 찬 원을 예상했는지.</span></figcaption></figure>
@@ -293,8 +359,8 @@ footer img{width:110px;background:#fff;border-radius:10px;padding:6px}
 </div></section>
 
 <!-- 5. evidence -->
-<section id="data"><div class="wrap">
-  <h2><span class="num">5</span><span lang="en">What changed in students' thinking</span><span lang="ko">학생 생각의 변화</span></h2>
+<section id="data" class="tint"><div class="wrap">
+  <h2><span class="num">6</span><span lang="en">What changed in students' thinking</span><span lang="ko">학생 생각의 변화</span></h2>
   <p class="sub"><span lang="en">From the platform records of Grade 7 classes 6–10 (151 students), as of 5 Nov 2026. No names or IDs.</span><span lang="ko">1학년 6~10반(151명) 앱 기록, 2026. 11. 5. 기준. 이름·학번 없이 집계.</span></p>
   <div class="kpis">
     <div class="kpi"><b>89</b><span><span lang="en">students took the pre-diagnosis</span><span lang="ko">명 회전체 사전 진단 제출</span></span></div>
@@ -320,8 +386,8 @@ footer img{width:110px;background:#fff;border-radius:10px;padding:6px}
 </div></section>
 
 <!-- 6. principles -->
-<section id="principles" class="tint"><div class="wrap">
-  <h2><span class="num">6</span><span lang="en">Design principles</span><span lang="ko">설계 원칙</span></h2>
+<section id="principles"><div class="wrap">
+  <h2><span class="num">7</span><span lang="en">Design principles</span><span lang="ko">설계 원칙</span></h2>
   <p class="sub"><span lang="en">Choices made by the teacher while building the platform with students.</span><span lang="ko">학생들과 수업하며 교사가 세운 원칙입니다.</span></p>
   <div class="prin">
     <div class="pr"><div class="ic">🌱</div><h3><span lang="en">Show change, not labels</span><span lang="ko">딱지 대신 생각 변화</span></h3><p><span lang="en">Students never see a "misconception" label. They see how their own thinking changed; diagnosis codes are for the teacher.</span><span lang="ko">학생에게 오개념 딱지를 보여 주지 않습니다. 학생은 자기 생각의 변화를, 교사는 진단 결과를 봅니다.</span></p></div>
