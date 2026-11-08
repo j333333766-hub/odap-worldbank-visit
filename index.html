@@ -132,19 +132,20 @@ figure.shot figcaption b{color:var(--ink);display:block;font-size:14.5px}
 .goal{background:var(--sky);border-radius:14px;padding:14px 16px;font-size:14.5px}
 .goal b{display:block;color:var(--navy);font-size:13px;margin-bottom:3px}
 .plan{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
-.plan .r{display:grid;grid-template-columns:86px 70px minmax(0,1.15fr) minmax(0,1fr);border-top:1px solid var(--line)}
+.plan .r{display:grid;grid-template-columns:76px 84px minmax(0,1.15fr) minmax(0,1fr);border-top:1px solid var(--line)}
 .plan .r:first-child{border-top:0}
 .plan .r>div{padding:10px 12px;font-size:14px}
 .plan .h>div{background:var(--band);font-weight:800;color:var(--ink);font-size:13px}
 .plan .tm{font-weight:800;color:var(--ink)}
-.plan .pg{color:var(--muted);font-weight:700}
+.plan .pg{color:var(--muted);font-weight:700;white-space:nowrap}
 .plan .mon{background:#FFF8F7;color:var(--ink2)}
 .plan .mon:before{content:"👀 ";}
 .plan .h .mon:before{content:"";}
 .plan .r.p1 .tm{color:var(--navy)}.plan .r.p2 .tm{color:var(--accent)}.plan .r.p3 .tm{color:var(--brand-deep)}
 @media (max-width:900px){
   .goals{grid-template-columns:1fr}
-  .plan .r{grid-template-columns:70px minmax(0,1fr)}
+  .plan .r{grid-template-columns:80px minmax(0,1fr)}
+  .plan .tm{white-space:nowrap}
   .plan .h{display:none}
   .plan .r>div:nth-child(2){grid-column:1}
   .plan .r>div:nth-child(3),.plan .r>div:nth-child(4){grid-column:2}
