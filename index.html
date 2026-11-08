@@ -127,6 +127,36 @@ figure.shot figcaption b{color:var(--ink);display:block;font-size:14.5px}
 .guard{margin-top:16px}
 .guard li{margin:3px 0}
 @media (max-width:900px){.cards,.ai{grid-template-columns:1fr}}
+/* lesson plan */
+.goals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 18px}
+.goal{background:var(--sky);border-radius:14px;padding:14px 16px;font-size:14.5px}
+.goal b{display:block;color:var(--navy);font-size:13px;margin-bottom:3px}
+.plan{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
+.plan .r{display:grid;grid-template-columns:86px 70px minmax(0,1.15fr) minmax(0,1fr);border-top:1px solid var(--line)}
+.plan .r:first-child{border-top:0}
+.plan .r>div{padding:10px 12px;font-size:14px}
+.plan .h>div{background:var(--band);font-weight:800;color:var(--ink);font-size:13px}
+.plan .tm{font-weight:800;color:var(--ink)}
+.plan .pg{color:var(--muted);font-weight:700}
+.plan .mon{background:#FFF8F7;color:var(--ink2)}
+.plan .mon:before{content:"👀 ";}
+.plan .h .mon:before{content:"";}
+.plan .r.p1 .tm{color:var(--navy)}.plan .r.p2 .tm{color:var(--accent)}.plan .r.p3 .tm{color:var(--brand-deep)}
+@media (max-width:900px){
+  .goals{grid-template-columns:1fr}
+  .plan .r{grid-template-columns:70px minmax(0,1fr)}
+  .plan .h{display:none}
+  .plan .r>div:nth-child(2){grid-column:1}
+  .plan .r>div:nth-child(3),.plan .r>div:nth-child(4){grid-column:2}
+  .plan .r>div:nth-child(2){grid-row:2}
+  .plan .r>div:nth-child(3){grid-row:1}
+  .plan .r>div:nth-child(4){grid-row:2}
+  .plan .r>div:nth-child(1){grid-row:1}
+}
+/* monitoring */
+.mons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
+.mons .card{border-top:4px solid var(--accent)}
+@media (max-width:900px){.mons{grid-template-columns:1fr}}
 /* footer */
 footer{background:var(--ink);color:#c9ced9;padding:36px 0;font-size:14px}
 footer b{color:#fff}
@@ -161,6 +191,7 @@ footer img{width:110px;background:#fff;border-radius:10px;padding:6px}
   <a class="brand" href="#top">Learning from Mistakes<small><span lang="en">Guwol Middle School</span><span lang="ko">구월중학교</span></small></a>
   <nav class="nav">
     <a href="#today"><span lang="en">Today's lesson</span><span lang="ko">오늘 수업</span></a>
+    <a href="#plan"><span lang="en">Lesson plan</span><span lang="ko">수업 계획</span></a>
     <a href="#project"><span lang="en">Project</span><span lang="ko">프로젝트</span></a>
     <a href="#platform"><span lang="en">Platform</span><span lang="ko">수업 시스템</span></a>
     <a href="#routines"><span lang="en">Motivation &amp; AI</span><span lang="ko">참여·AI</span></a>
@@ -215,6 +246,24 @@ footer img{width:110px;background:#fff;border-radius:10px;padding:6px}
       </ol>
     </div>
   </div>
+  <h3 id="plan" style="margin:34px 0 10px;scroll-margin-top:70px"><span lang="en">📋 Lesson plan for today (45 minutes)</span><span lang="ko">📋 오늘 공개 수업 계획(45분)</span></h3>
+  <div class="goals">
+    <div class="goal"><b><span lang="en">Learning goal 1 · Concept</span><span lang="ko">학습 목표 1 · 개념</span></b><span lang="en">Check in 3D and explain that a cross-section of a solid of revolution cut by a plane perpendicular to the axis is not always a full circle, but its boundary is always a circle.</span><span lang="ko">회전체를 회전축에 수직인 평면으로 자른 단면이 항상 꽉 찬 원은 아니지만, 그 경계는 언제나 원임을 3D로 확인하고 설명한다.</span></div>
+    <div class="goal"><b><span lang="en">Learning goal 2 · Making</span><span lang="ko">학습 목표 2 · 만들기</span></b><span lang="en">Find the plane figure that generates an everyday solid of revolution, then design and build an original one.</span><span lang="ko">실생활 회전체를 만드는 평면도형을 찾고, 나만의 회전체를 설계하고 만든다.</span></div>
+    <div class="goal"><b><span lang="en">Learning goal 3 · Attitude</span><span lang="ko">학습 목표 3 · 태도</span></b><span lang="en">Write down a first idea, test it with evidence and change their mind when the evidence says so.</span><span lang="ko">처음 생각을 기록하고, 근거로 확인하고, 근거가 말하면 생각을 고친다.</span></div>
+  </div>
+  <div class="plan">
+    <div class="r h"><div><span lang="en">Time</span><span lang="ko">시간</span></div><div><span lang="en">Page</span><span lang="ko">쪽</span></div><div><span lang="en">Student activity</span><span lang="ko">학생 활동</span></div><div class="mon"><span lang="en">Teacher · what is monitored</span><span lang="ko">교사 · 모니터링 포인트</span></div></div>
+    <div class="r p1"><div class="tm">0–2′</div><div class="pg">P.1</div><div><span lang="en">Today's mission: sign in and read the question of the day.</span><span lang="ko">오늘의 미션: 로그인하고 오늘의 탐구 질문 읽기</span></div><div class="mon"><span lang="en">Call the whole class to page 1 and lock it; check that everyone is connected.</span><span lang="ko">모두를 1쪽으로 불러 잠그고, 접속하지 않은 학생 확인</span></div></div>
+    <div class="r p1"><div class="tm">2–5′</div><div class="pg">P.2</div><div><span lang="en">First vote: Minsu ("always a circle") or Jiyeon ("maybe not")? Write a reason.</span><span lang="ko">처음 생각: 민수("항상 원") / 지연("아닐 수도") 고르고 이유 쓰기</span></div><div class="mon"><span lang="en">See the split of votes as answers arrive; pick one or two reasons to share on screen (names hidden).</span><span lang="ko">들어오는 답으로 의견 분포 확인, 이유 한두 개를 이름 없이 화면에 공유</span></div></div>
+    <div class="r p1"><div class="tm">5–11′</div><div class="pg">P.3–6</div><div><span lang="en">For trapezoids ① and ③: sketch the predicted solid, choose two cutting heights, sketch both cross-sections, then check in 3D.</span><span lang="ko">사다리꼴 ①·③: 회전체 예상 그림 → 두 높이 단면 예상 그림 → 3D로 돌려서 확인</span></div><div class="mon"><span lang="en">Cards show every sketch large: who expects a full disc, who expects a ring. The 3D check is locked until both sketches exist, so predictions are honest.</span><span lang="ko">카드에 학생 그림이 크게 보임: 꽉 찬 원 / 고리를 예상한 학생 구분. 두 그림을 다 그려야 3D가 열려 예상이 먼저 남음</span></div></div>
+    <div class="r p2"><div class="tm">11–15′</div><div class="pg">P.7–8</div><div><span lang="en">The hidden clue: the <b>boundary</b> of the cross-section. Vote again and write what you felt.</span><span lang="ko">숨은 단서: 단면의 <b>경계</b>. 같은 질문에 다시 답하고 느낀 점 쓰기</span></div><div class="mon"><span lang="en">Compare first and second votes; share a student who changed their mind and why.</span><span lang="ko">처음·다시 생각 비교, 생각을 바꾼 학생의 글을 공유</span></div></div>
+    <div class="r p3"><div class="tm">15–22′</div><div class="pg">P.9–10</div><div><span lang="en">Choose an everyday solid (top, jar, doughnut) and draw its plane figure in AlgeoMath 3D; rotate it and compare.</span><span lang="ko">실생활 회전체(팽이·항아리·도넛)를 골라 평면도형을 알지오3D에 그리고 1회전 시켜 비교</span></div><div class="mon"><span lang="en">Snapshot of each AlgeoMath screen; a "rotated" mark shows who has actually turned a figure.</span><span lang="ko">알지오3D 화면 사진과 "회전시킴" 표시로 실제로 돌려 본 학생 확인</span></div></div>
+    <div class="r p3"><div class="tm">22–33′</div><div class="pg">P.11–13</div><div><span lang="en">Sketch an original solid with its axis, build it in AlgeoMath 3D (sketch stays on the right), export STL.</span><span lang="ko">나만의 회전체 스케치 → 알지오3D로 제작(스케치가 오른쪽에 보임) → STL 내보내기</span></div><div class="mon"><span lang="en">Sketch cards side by side; walk to students who are still on an earlier page.</span><span lang="ko">스케치 카드를 한눈에 비교, 앞 쪽에 머문 학생에게 다가가 돕기</span></div></div>
+    <div class="r p3"><div class="tm">33–41′</div><div class="pg">P.14–15</div><div><span lang="en">Colour it in Paint 3D, save GLB, upload inside the worksheet.</span><span lang="ko">그림판3D로 색칠 → GLB 저장 → 활동지 안에서 제출</span></div><div class="mon"><span lang="en">Student overview shows who has submitted a file.</span><span lang="ko">학생별 현황에서 작품 파일 제출 여부 확인</span></div></div>
+    <div class="r p3"><div class="tm">41–45′</div><div class="pg">—</div><div><span lang="en">Wrap-up: look at classmates' works in the AR gallery on phones; write the math diary after class.</span><span lang="ko">정리: 휴대폰 AR 갤러리로 친구 작품 감상, 수업 뒤 수학 일기 쓰기</span></div><div class="mon"><span lang="en">Share the gallery QR; close answers for the lesson.</span><span lang="ko">갤러리 QR 공유, 답 마감</span></div></div>
+  </div>
+  <p class="caveat"><span lang="en">Timing is a plan; the teacher adjusts the pace from the monitoring screen. Points keep accumulating as in every lesson (3 points per page, 10 for submitting a work).</span><span lang="ko">시간은 계획이며, 교사가 모니터링 화면을 보며 속도를 조절합니다. 포인트는 평소 수업처럼 쌓입니다(쪽마다 3점, 작품 제출 10점).</span></p>
   <div class="shots">
     <figure class="shot"><img src="img/sp02-vote.webp" alt="" loading="lazy"><figcaption><b><span class="tag s">P.2</span><span lang="en">First vote: Minsu or Jiyeon?</span><span lang="ko">처음 생각: 민수 또는 지연</span></b></figcaption></figure>
     <figure class="shot"><img src="img/sp03-solid.webp" alt="" loading="lazy"><figcaption><b><span class="tag s">P.3</span><span lang="en">Predict the solid (line, ellipse, move & resize tools)</span><span lang="ko">회전체 예상 그리기(선분·타원·옮기기·크기 도구)</span></b></figcaption></figure>
@@ -355,6 +404,18 @@ footer img{width:110px;background:#fff;border-radius:10px;padding:6px}
     <figure class="shot"><img src="img/t-monitor-p8.webp" alt="" loading="lazy"><figcaption><b><span class="tag t">P.8</span><span lang="en">Second vote with reasons and reflections</span><span lang="ko">다시 생각 — 이유와 느낀 점</span></b></figcaption></figure>
     <figure class="shot"><img src="img/t-live-panel.webp" alt="" loading="lazy"><figcaption><b><span class="tag t">LIVE</span><span lang="en">Lesson bar + the student screen on the right</span><span lang="ko">수업 막대 + 오른쪽 학생 화면</span></b></figcaption></figure>
     <figure class="shot"><img src="img/t-students.webp" alt="" loading="lazy"><figcaption><b><span class="tag t">LIVE</span><span lang="en">Student overview: page, progress, files</span><span lang="ko">학생별 현황: 지금 쪽·진행·작품 파일</span></b></figcaption></figure>
+  </div>
+  <h3 style="margin-top:30px"><span lang="en">Monitoring features</span><span lang="ko">모니터링 기능 안내</span></h3>
+  <div class="mons">
+    <div class="card"><div class="ic">🗺️</div><h3><span lang="en">Page map</span><span lang="ko">쪽 지도</span></h3><p><span lang="en">A strip of page buttons shows, for every page, how many students have done it and how many are on it right now.</span><span lang="ko">쪽 단추마다 그 쪽을 한 학생 수와 지금 그 쪽에 있는 학생 수가 보입니다.</span></p></div>
+    <div class="card"><div class="ic">🧑‍🎓</div><h3><span lang="en">Live student cards</span><span lang="ko">실시간 학생 카드</span></h3><p><span lang="en">Answers and drawings appear while students are still writing. A "just now" tag marks fresh changes, a dot shows who is on this page, and "other tab" shows who has left the worksheet.</span><span lang="ko">쓰는 중인 답과 그림이 바로 보입니다. 방금 바뀐 카드에 "방금", 지금 이 쪽에 있는 학생에 점, 활동지를 벗어난 학생에 "다른 탭" 표시.</span></p></div>
+    <div class="card"><div class="ic">🔍</div><h3><span lang="en">Views for drawing pages</span><span lang="ko">그림 쪽 보기</span></h3><p><span lang="en">On drawing pages the cards show only the sketches, large; clicking a student opens everything they wrote. Sort by number or by latest change; fit all cards on one screen, small or large.</span><span lang="ko">그림 쪽에서는 카드에 그림만 크게 보이고, 학생을 누르면 쓴 글까지 펼쳐집니다. 번호순·최근 바뀐 순 정렬, 한 화면·작게·크게.</span></p></div>
+    <div class="card"><div class="ic">📣</div><h3><span lang="en">Call and lock</span><span lang="ko">불러오기·잠금</span></h3><p><span lang="en">Bring the whole class to the current page with one button. While locked, students stay on that page and move together with the teacher's ◀ ▶.</span><span lang="ko">단추 하나로 모두를 지금 쪽으로 부릅니다. 잠그면 학생은 그 쪽에 머물고, 교사의 ◀ ▶에 맞춰 함께 넘어갑니다.</span></p></div>
+    <div class="card"><div class="ic">⏱️</div><h3><span lang="en">Close answers</span><span lang="ko">답 마감</span></h3><p><span lang="en">Close a page immediately, or after a 30-second countdown shown on student screens. Students can still move on; they just cannot edit that page.</span><span lang="ko">바로, 또는 학생 화면에 30초 카운트다운을 띄운 뒤 그 쪽 답을 마감합니다. 다른 쪽으로는 계속 갈 수 있습니다.</span></p></div>
+    <div class="card"><div class="ic">📢</div><h3><span lang="en">Share on every screen</span><span lang="ko">모두에게 공유</span></h3><p><span lang="en">Pick one answer or drawing and show it on all student screens, with or without the name ("Answer 1, Answer 2").</span><span lang="ko">고른 답이나 그림을 반 학생 모두의 화면에 띄웁니다. 이름을 숨기면 "답 1, 답 2"로 보입니다.</span></p></div>
+    <div class="card"><div class="ic">🖥️</div><h3><span lang="en">Student view beside the monitor</span><span lang="ko">옆에 띄우는 학생 화면</span></h3><p><span lang="en">The same worksheet students see opens on the right for the projector; turning pages there moves the monitor (and, when locked, the class) too.</span><span lang="ko">학생과 같은 활동지 화면을 오른쪽에 띄워 칠판에 보여 줍니다. 거기서 쪽을 넘기면 모니터도 (잠금 중이면 학생도) 함께 넘어갑니다.</span></p></div>
+    <div class="card"><div class="ic">📋</div><h3><span lang="en">Student overview</span><span lang="ko">학생별 현황</span></h3><p><span lang="en">Current page, activities finished, whether the AlgeoMath figure was really rotated and whether the 3D model file was submitted.</span><span lang="ko">지금 있는 쪽, 마친 활동, 알지오3D에서 실제로 회전시켰는지, 작품 파일을 제출했는지 한 줄로 봅니다.</span></p></div>
+    <div class="card"><div class="ic">🛡️</div><h3><span lang="en">Fair records</span><span lang="ko">기록 보호</span></h3><p><span lang="en">A prediction locks once the 3D check is opened, so the record keeps the student's real first idea. The teacher can reset one student's record if something goes wrong.</span><span lang="ko">3D 확인을 열면 예상 그림이 잠겨 처음 생각이 그대로 남습니다. 문제가 생기면 교사가 한 학생의 기록만 초기화할 수 있습니다.</span></p></div>
   </div>
 </div></section>
 
